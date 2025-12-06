@@ -1,3 +1,39 @@
+const API_KEY = process.env.API_KEY;
+const reader = new FileReader();
+let data;
+
+reader.onload = async function(e){
+    const base64Data = e.target
+    const response = await fetch(
+        `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${API_KEY}`,
+        {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                contents:[{
+                    parts: [
+                        {
+                            text: `Analyze this audio file and identify the musical pitches present in order throughout the file. Separate the notes into bars as if you would using sheet music. Additionally, include the length of each note.`
+                        },
+                        {
+                            inline_data: {
+                                mime_type: fileType,
+                                data: base64Data
+                            }
+                        }
+                    ]
+                }]
+            })
+        }
+    )
+    data = response.json();
+}
+
+console.log(data);
+
+
 document.addEventListener("DOMContentLoaded", () => {
     const fileInput = document.getElementById("audioUpload");
     const audioPlayer = document.getElementById("audioPlayer");
@@ -6,7 +42,8 @@ document.addEventListener("DOMContentLoaded", () => {
     
     let audioContext;
     let audioBuffer;
-    
+    let fileType;
+
     fileInput.addEventListener("change", (event) => {
         uploadAndDisplayAudio(fileInput, audioPlayer);
     });
@@ -32,6 +69,7 @@ document.addEventListener("DOMContentLoaded", () => {
             audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
             
             resultsDiv.textContent = "Audio loaded! Click 'Analyze Pitches' to detect notes.";
+            fileType = file.type;
         }
     }
     
