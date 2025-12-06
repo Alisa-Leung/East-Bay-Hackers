@@ -72,7 +72,7 @@ async function ServeFile(req, res) {
         const Result = DynamicData.replace(/\<\/body>/g, JSON.parse(Response) + "</body>");
         fs.writeFileSync(ClonedFilePath, Result, "utf-8");
     } catch(err) {
-        res.setHeader({"Content-Type": "application/json"});
+        res.writeHead(200, {"Content-Type": "application/json"});
         res.end(JSON.stringify({
             message: err
         }));
