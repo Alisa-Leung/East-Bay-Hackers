@@ -76,6 +76,7 @@ async function ServeFile(req, res) {
         res.end(JSON.stringify({
             message: err
         }));
+        return;
     }
     }
 

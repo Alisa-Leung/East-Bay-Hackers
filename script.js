@@ -1,28 +1,3 @@
-document.addEventListener("DOMContentLoaded", () => {
-    const fileInput = document.getElementById("audioUpload");
-    const audioPlayer = document.getElementById("audioPlayer");
-    const analyzeButton = document.getElementById("analyzeButton");
-
-    fileInput.addEventListener("change", (event) => {
-        uploadAndDisplayAudio(fileInput, audioPlayer);
-    });
-    
-    analyzeButton.addEventListener("click", () => {
-        console.log(data);
-    });
-    
-    async function uploadAndDisplayAudio(fileInput, audioPlayer) {
-        const file = fileInput.files[0];
-        if (file) {
-            const objectURL = URL.createObjectURL(file);
-            audioPlayer.src = objectURL;
-            audioPlayer.load();
-            fileType = file.type;
-        }
-    }
-});
-
-
 const API_KEY = process.env.API_KEY;
 const reader = new FileReader();
 let data;
@@ -55,3 +30,32 @@ reader.onload = async function(e){
     )
     data = response.json();
 }
+
+console.log(data);
+
+
+document.addEventListener("DOMContentLoaded", () => {
+    const fileInput = document.getElementById("audioUpload");
+    const audioPlayer = document.getElementById("audioPlayer");
+    const analyzeButton = document.getElementById("analyzeButton");
+    const resultsDiv = document.getElementById("results")
+    
+    let audioContext;
+    let audioBuffer;
+    let fileType;
+
+    fileInput.addEventListener("change", (event) => {
+        uploadAndDisplayAudio(fileInput, audioPlayer);
+    });
+    
+    async function uploadAndDisplayAudio(fileInput, audioPlayer) {
+        const file = fileInput.files[0];
+        if (file) {
+            const objectURL = URL.createObjectURL(file);
+            audioPlayer.src = objectURL;
+            audioPlayer.load();
+
+            fileType = file.type;
+        }
+    }
+});
