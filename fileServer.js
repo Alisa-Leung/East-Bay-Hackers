@@ -5,12 +5,12 @@ import mimetypes from "mime-types";
 async function GetBody(req) {
     return new Promise((res, rej) => {
         let Body = "";
-        res.on("data", (chunk) => {
+        req.on("data", (chunk) => {
             Body += chunk
         })
-        res.on("end", () => {
+        req.on("end", () => {
             try {
-                resolve(JSON.parse(Body));
+                res(JSON.parse(Body));
             } catch(err) {
                 console.log(err);
             }
@@ -27,6 +27,8 @@ function ServeFile(req, res) {
         // Default to index.html
         FileName = "index.html";
     }
+
+    console.log(FileName);
 
     fs.readFile(FileName, (err, FileData) => {
         if (err) {
