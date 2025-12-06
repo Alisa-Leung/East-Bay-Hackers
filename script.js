@@ -10,6 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
     fileInput.addEventListener("change", (event) => {
         uploadAndDisplayAudio(fileInput, audioPlayer);
     });
+    
     analyzeButton.addEventListener("click", () => {
         if (audioBuffer) {
             analyzePitches(audioBuffer, resultsDiv);
@@ -56,6 +57,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 const time = (start / sampleRate).toFixed(2);
                 detectedNotes.push({ time, frequency: frequency.toFixed(2), note });
             }
+            console.log(detectedNotes);
         }
     }
     
