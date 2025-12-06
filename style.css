@@ -1,8 +1,16 @@
-root:{
+:root{
     /*fonts*/
     --poppins: "Poppins";
     --cairo: "Cairo";
     /*colors*/
     --black: #212121;
-    --white:
+    --white: #FBF5E5;
+    --pink: #FFACAC;
+    --magenta: #E45A92;
+    --mid-purple: #5D2F77;
+    --dark-purple: #3E1E68;
+}
+
+main{
+    background-color: linear-gradient(to bottom var(--pink), var(--magenta), var(--mid-purple));
 }
