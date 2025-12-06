@@ -1,0 +1,23 @@
+{
+  "name": "east-bay-hackers",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/Alisa-Leung/East-Bay-Hackers#readme",
+  "bugs": {
+    "url": "https://github.com/Alisa-Leung/East-Bay-Hackers/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Alisa-Leung/East-Bay-Hackers.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "module",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "react": "^19.2.1"
+  }
+}
