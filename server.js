@@ -1,5 +1,5 @@
 import http from "http";
-import { GetBody, ServeFile } from "./fileServer";
+import { GetBody, ServeFile } from "./fileServer.js";
 
 const PORT = 5000;
 
