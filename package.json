@@ -1,7 +1,7 @@
 {
   "name": "east-bay-hackers",
   "version": "1.0.0",
-  "description": "",
+  "description": "Note Analyzer",
   "homepage": "https://github.com/Alisa-Leung/East-Bay-Hackers#readme",
   "bugs": {
     "url": "https://github.com/Alisa-Leung/East-Bay-Hackers/issues"
@@ -13,7 +13,7 @@
   "license": "ISC",
   "author": "",
   "type": "module",
-  "main": "script.js",
+  "main": "server.js",
   "scripts": {
     "dev": "node server.js"
   },
