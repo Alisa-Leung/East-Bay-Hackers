@@ -1,4 +1,8 @@
 root:{
     /*fonts*/
-    --poppins: "Poppins"
+    --poppins: "Poppins";
+    --cairo: "Cairo";
+    /*colors*/
+    --black: #212121;
+    --white:
 }
