@@ -18,6 +18,8 @@
     "dev": "node server.js"
   },
   "dependencies": {
+    "@types/mime-types": "^3.0.1",
+    "mime-types": "^3.0.2",
     "react": "^19.2.1"
   }
 }
