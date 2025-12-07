@@ -66,6 +66,8 @@ async function ServeFile(req, res) {
                 return;
             }
 
+            console.log("Result");
+            console.log(JSON.parse(result));
             const Result = DynamicData.replace(/\<\/body>/g, JSON.parse(result) + "</body>");
             fs.writeFileSync(ClonedFilePath, Result, "utf-8");
             console.log("Successfully created the dynamic HTML file!");
