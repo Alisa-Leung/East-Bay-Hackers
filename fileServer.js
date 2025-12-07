@@ -2,6 +2,8 @@ import fs from "fs";
 import url from "url";
 import mimetypes from "mime-types";
 
+const API_KEY = process.env.API_KEY;
+
 async function GetBody(req) {
     return new Promise((res, rej) => {
         let Body = "";
@@ -19,7 +21,7 @@ async function GetBody(req) {
     });
 }
 
-function ServeFile(req, res) {
+async function ServeFile(req, res) {
     const URL = url.parse(req.url, true);
     let FileName = URL.path.replace(/^\/+|\/+$/g, "");
 
@@ -28,7 +30,55 @@ function ServeFile(req, res) {
         FileName = "index.html";
     }
 
+    const ClonedFilePath = "dynamic.html";
     console.log(FileName);
+
+    if (FileName === "index.html") {
+        try {
+            const Response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${API_KEY}`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    contents:[{
+                        parts: [
+                            {
+                                text: `Analyze this audio file and identify the musical pitches present in order throughout the file. Separate the notes into bars as if you would using sheet music. Additionally, include the length of each note.`
+                            },
+                            {
+                                inline_data: {
+                                    mime_type: fileType,
+                                    data: base64Data
+                                }
+                            }
+                        ]
+                    }]
+                })
+            }
+        );
+
+        fs.copyFileSync(FileName, ClonedFilePath)
+        const DynamicData = fs.readFileSync(ClonedFilePath, "utf-8");
+
+        if (!DynamicData) {
+            res.setHeader({"Content-Type": "application/json"});
+            res.end(JSON.stringify({
+                message: "There was a problem creating a dynamic HTML file!"
+            }));
+            return;
+        }
+
+        const Result = DynamicData.replace(/\<\/body>/g, JSON.parse(Response) + "</body>");
+        fs.writeFileSync(ClonedFilePath, Result, "utf-8");
+    } catch(err) {
+        res.writeHead(200, {"Content-Type": "application/json"});
+        res.end(JSON.stringify({
+            message: err
+        }));
+        return;
+    }
+    }
 
     fs.readFile(FileName, (err, FileData) => {
         if (err) {
@@ -43,6 +93,10 @@ function ServeFile(req, res) {
         const FileMime = mimetypes.lookup(FileName);
         res.writeHead(200, {"Content-Type": FileMime});
         res.end(FileData);
+
+        if (fs.existsSync(ClonedFilePath)) {
+            fs.unlinkSync(ClonedFilePath);
+        }
     })
 }
 
