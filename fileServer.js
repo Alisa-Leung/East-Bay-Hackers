@@ -36,7 +36,7 @@ async function ServeFile(req, res) {
     if (FileName === "index.html") {
         try {
             new Promise((res, req) => {
-                const Response = fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${API_KEY}`, {
+                return fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${API_KEY}`, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
@@ -54,7 +54,7 @@ async function ServeFile(req, res) {
                 }
             );
         })
-        .then(() => {
+        .then((result) => {
             fs.copyFileSync(FileName, ClonedFilePath)
             const DynamicData = fs.readFileSync(ClonedFilePath, "utf-8");
 
@@ -66,7 +66,7 @@ async function ServeFile(req, res) {
                 return;
             }
 
-            const Result = DynamicData.replace(/\<\/body>/g, JSON.parse(Response) + "</body>");
+            const Result = DynamicData.replace(/\<\/body>/g, JSON.parse(result) + "</body>");
             fs.writeFileSync(ClonedFilePath, Result, "utf-8");
             console.log("Successfully created the dynamic HTML file!");
         });
