@@ -31,21 +31,17 @@ reader.onload = async function(e){
     data = response.json();
 }
 
-console.log(data);
-
-
 document.addEventListener("DOMContentLoaded", () => {
     const fileInput = document.getElementById("audioUpload");
     const audioPlayer = document.getElementById("audioPlayer");
     const analyzeButton = document.getElementById("analyzeButton");
-    const resultsDiv = document.getElementById("results")
-    
-    let audioContext;
-    let audioBuffer;
-    let fileType;
 
     fileInput.addEventListener("change", (event) => {
         uploadAndDisplayAudio(fileInput, audioPlayer);
+    });
+    
+    analyzeButton.addEventListener("click", () => {
+        console.log(data);
     });
     
     async function uploadAndDisplayAudio(fileInput, audioPlayer) {
@@ -54,7 +50,6 @@ document.addEventListener("DOMContentLoaded", () => {
             const objectURL = URL.createObjectURL(file);
             audioPlayer.src = objectURL;
             audioPlayer.load();
-
             fileType = file.type;
         }
     }

@@ -9,8 +9,42 @@
     --magenta: #E45A92;
     --mid-purple: #5D2F77;
     --dark-purple: #3E1E68;
+    /*sizing*/
+    --sm: 4px;
+    --md: 8px;
+    --lg: 16px;
+    --xl: 24px;
+    --xxl: 48px;
 }
 
-main{
-    background-color: linear-gradient(to bottom var(--pink), var(--magenta), var(--mid-purple));
+#logo{
+    width: 50%;
+    text-align: center;
+}
+html{
+    display: flex;
+    background-color: var(--white);
+    font-family: var(--poppins);
+    text-align: center;
+    justify-content: center;
+}
+#audioUpload,#analyzeButton{
+    font-family: var(--poppins);
+    padding: var(--md);
+}
+#audioUpload::file-selector-button,#analyzeButton{
+    border: none;
+    border-radius: var(--sm);
+    background-color: var(--mid-purple);
+    color: var(--white);
+    padding: var(--md);
+    font-family: var(--poppins);
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    background-image: linear-gradient(to bottom, var(--pink), var(--magenta));
+}
+#audioUpload::file-selector-button:hover,#analyzeButton:hover{
+    transform: translateY(-3px);
+    box-shadow: 0 2px 3px rgba(0,0,0,0.15);
 }
