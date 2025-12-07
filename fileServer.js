@@ -8,9 +8,8 @@ async function GetBody(req) {
     return new Promise((res, rej) => {
         let Body = "";
         req.on("data", (chunk) => {
-            console.log("test");
-            Body += chunk
-        })
+            Body += chunk;
+        });
         req.on("end", () => {
             try {
                 res(JSON.parse(Body));
@@ -65,7 +64,7 @@ async function ServeFile(req, res) {
         if (!DynamicData) {
             res.setHeader({"Content-Type": "application/json"});
             res.end(JSON.stringify({
-                message: "There was a problem creating a dynamic HTML file!"
+                message: "There was a problem creating the dynamic HTML file!"
             }));
             return;
         }
