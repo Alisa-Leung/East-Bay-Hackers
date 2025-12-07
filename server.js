@@ -4,7 +4,7 @@ import { GetBody, ServeFile } from "./fileServer.js";
 const PORT = 5000;
 
 const Server = http.createServer(async (req, res) => {
-    await GetBody(req);
+    GetBody(req);
     ServeFile(req, res);
 });
 

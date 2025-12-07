@@ -7,7 +7,6 @@ const API_KEY = process.env.API_KEY;
 async function GetBody(req) {
     return new Promise((res, rej) => {
         let Body = "";
-        console.log(`current file: ${url.parse(req.url, true).path.replace(/^\/+|\/+$/g, "")}`)
         req.on("data", (chunk) => {
             Body += chunk;
         });
