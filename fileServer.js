@@ -47,11 +47,7 @@ async function ServeFile(req, res) {
                                 {
                                     text: `Analyze this audio file and identify the musical pitches present in order throughout the file. Separate the notes into bars as if you would using sheet music. Additionally, include the length of each note.`
                                 },
-                                {
-                                    inline_data: {
-                                        data: base64Data
-                                    }
-                                }
+                                {}
                             ]
                         }]
                     })
