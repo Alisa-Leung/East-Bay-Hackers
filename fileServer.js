@@ -49,7 +49,6 @@ async function ServeFile(req, res) {
                                 },
                                 {
                                     inline_data: {
-                                        mime_type: fileType,
                                         data: base64Data
                                     }
                                 }
