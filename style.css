@@ -23,8 +23,7 @@
     position: absolute;
     z-index: 1;
     top: 0;
-    left: 50%;
-    right: 50%;
+    transform: translateX(50%);
 }
 html{
     display: flex;
@@ -59,4 +58,7 @@ html{
 #audioUpload::file-selector-button:hover,#analyzeButton:hover{
     transform: translateY(-3px);
     box-shadow: 0 2px 3px rgba(0,0,0,0.15);
+}
+main{
+    position: absolute;
 }
