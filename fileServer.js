@@ -8,6 +8,7 @@ async function GetBody(req) {
     return new Promise((res, rej) => {
         let Body = "";
         req.on("data", (chunk) => {
+            console.log("test");
             Body += chunk
         })
         req.on("end", () => {
