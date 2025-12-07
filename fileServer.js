@@ -35,43 +35,41 @@ async function ServeFile(req, res) {
 
     if (FileName === "index.html") {
         try {
-            /*const Response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${API_KEY}`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    contents:[{
-                        parts: [
-                            {
-                                text: `Analyze this audio file and identify the musical pitches present in order throughout the file. Separate the notes into bars as if you would using sheet music. Additionally, include the length of each note.`
-                            },
-                            {
-                                inline_data: {
-                                    mime_type: fileType,
-                                    data: base64Data
-                                }
-                            }
-                        ]
-                    }]
-                })
+            new Promise((res, req) => {
+                const Response = fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${API_KEY}`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        contents:[{
+                            parts: [
+                                {
+                                    text: `Analyze this audio file and identify the musical pitches present in order throughout the file. Separate the notes into bars as if you would using sheet music. Additionally, include the length of each note.`
+                                },
+                                {}
+                            ]
+                        }]
+                    })
+                }
+            );
+        })
+        .then(() => {
+            fs.copyFileSync(FileName, ClonedFilePath)
+            const DynamicData = fs.readFileSync(ClonedFilePath, "utf-8");
+
+            if (!DynamicData) {
+                res.setHeader({"Content-Type": "application/json"});
+                res.end(JSON.stringify({
+                    message: "There was a problem creating the dynamic HTML file!"
+                }));
+                return;
             }
-        );*/
 
-        fs.copyFileSync(FileName, ClonedFilePath)
-        const DynamicData = fs.readFileSync(ClonedFilePath, "utf-8");
-
-        if (!DynamicData) {
-            res.setHeader({"Content-Type": "application/json"});
-            res.end(JSON.stringify({
-                message: "There was a problem creating the dynamic HTML file!"
-            }));
-            return;
-        }
-
-        const Result = DynamicData.replace(/\<\/body>/g, JSON.parse(Response) + "</body>");
-        fs.writeFileSync(ClonedFilePath, Result, "utf-8");
-        console.log("Successfully created the dynamic HTML file!");
+            const Result = DynamicData.replace(/\<\/body>/g, JSON.parse(Response) + "</body>");
+            fs.writeFileSync(ClonedFilePath, Result, "utf-8");
+            console.log("Successfully created the dynamic HTML file!");
+        });
     } catch(err) {
         res.writeHead(200, {"Content-Type": "application/json"});
         res.end(JSON.stringify({
